@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServiciosEditDlg" widgetVar="ServiciosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditServiciosTitle}">
+            <h:form id="ServiciosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{serviciosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{serviciosController.selected.id}" title="#{bundle.EditServiciosTitle_id}" required="true" requiredMessage="#{bundle.EditServiciosRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{serviciosController.selected.fechaInicio}" title="#{bundle.EditServiciosTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditServiciosRequiredMessage_fechaInicio}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{serviciosController.selected.fechaFin}" title="#{bundle.EditServiciosTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditServiciosRequiredMessage_fechaFin}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{serviciosController.selected.total}" title="#{bundle.EditServiciosTitle_total}" required="true" requiredMessage="#{bundle.EditServiciosRequiredMessage_total}"/>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_idTipoPago}" for="idTipoPago" />
+                        <p:selectOneMenu id="idTipoPago" value="#{serviciosController.selected.idTipoPago}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipospagoController.itemsAvailableSelectOne}"
+                                           var="idTipoPagoItem"
+                                           itemValue="#{idTipoPagoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{serviciosController.selected.status}" required="true" requiredMessage="#{bundle.EditServiciosRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1" />
+                            <f:selectItem itemLabel="Eliminar" itemValue="0" />                            
+                        </p:selectOneMenu>                        
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{serviciosController.selected.idCliente}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditServiciosLabel_idEmpleado}" for="idEmpleado" />
+                        <p:selectOneMenu id="idEmpleado" value="#{serviciosController.selected.idEmpleado}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idEmpleadoItem"
+                                           itemValue="#{idEmpleadoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{serviciosController.update}" value="#{bundle.Save}" update="display,:ServiciosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ServiciosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ServiciosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

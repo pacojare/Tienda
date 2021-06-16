@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templates/empleado.xhtml">
+        <ui:define name="contenido">
+            <h:form id="EnviosListForm">
+                <p:panel header="Lista envios Eliminados">
+                    <p:dataTable id="datalist" value="#{enviosController.items2}" var="item"
+                                 selectionMode="single" selection="#{enviosController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="deleteButton"/>
+                        <p:ajax event="rowUnselect" update="deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_numeroGuia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroGuia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_fechaEnvio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaEnvio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_fechaRecepcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaRecepcion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVenta.fecha}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idDireccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDireccion.cp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEnviosTitle_idPaqueteria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPaqueteria.nombre}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="RESTAURAR" actionListener="#{enviosController.restaurar}" update=":growl,datalist" disabled="#{empty enviosController.selected}"/>
+                            <h:link outcome="/envios/List" value="Lista envios"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

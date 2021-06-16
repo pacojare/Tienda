@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="templates/invitado.xhtml">
+        <ui:define name="contenido">
+            <!-- ======= Contact Us Section ======= -->
+            <section id="contact" class="contact">
+                <div class="container">
+
+                    <div class="section-title" data-aos="fade-down">
+                        <span>Registrarse</span>
+                        <h2>Registrarse</h2>
+                    </div>                    
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-12" data-aos="fade-up" data-aos-delay="100">
+
+                        </div>
+                        <div class="col-lg-4 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+                            <h:form id="LoginForm">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel value="#{bundle.CreateUsuariosLabel_nombre}" for="nombre" />
+                                    <p:inputText
+                                        id="nombre"
+                                        required="true"
+                                        value ="#{login.selected.nombre}"
+                                        />
+                                    <p:outputLabel value="#{bundle.CreateUsuariosLabel_username}" for="username" />
+                                    <p:inputText
+                                        id="username"
+                                        required="true"
+                                        value ="#{login.selected.username}"
+                                        />
+                                    <p:outputLabel value="#{bundle.CreateUsuariosLabel_email}" for="email" />
+                                    <p:inputText
+                                        id="email"
+                                        required="true"
+                                        value ="#{login.selected.email}"
+                                        />
+                                    <p:outputLabel value="#{bundle.CreateUsuariosLabel_password}" for="pass" />
+                                    <p:inputText
+                                        id="pass"
+                                        type ="password"
+                                        required="true"
+                                        value ="#{login.selected.password}"
+                                        />
+                                    <p:outputLabel value="Confirmar Contraseña" for="pass2" />
+                                    <p:inputText
+                                        id="pass2"
+                                        type ="password"
+                                        required="true"
+                                        value ="#{login.password2}"
+                                        />
+                                    <h:column />
+                                    <p:commandButton 
+                                        actionListener="#{registro.Registro()}"
+                                        value="Registrarse"
+                                        icon="ui-icon-key"
+                                        update=":growl"
+                                        /> 
+                                </h:panelGrid>
+                            </h:form>
+
+                        </div>
+                        <div class="col-lg-4 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300"/>
+
+                    </div>
+                </div>
+            </section><!-- End Contact Us Section --><!-- End Pricing Section -->
+            <!-- ======= Contact Us Section ======= -->
+
+
+        </ui:define>
+    </ui:composition>
+</html>

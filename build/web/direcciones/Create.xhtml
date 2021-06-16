@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionesCreateDlg" widgetVar="DireccionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDireccionesTitle}">
+            <h:form id="DireccionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{direccionesController.selected.direccion}" title="#{bundle.CreateDireccionesTitle_direccion}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{direccionesController.selected.colonia}" title="#{bundle.CreateDireccionesTitle_colonia}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_cp}" for="cp" />
+                        <p:inputText id="cp" value="#{direccionesController.selected.cp}" title="#{bundle.CreateDireccionesTitle_cp}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_cp}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_alias}" for="alias" />
+                        <p:inputText id="alias" value="#{direccionesController.selected.alias}" title="#{bundle.CreateDireccionesTitle_alias}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_alias}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_idPais}" for="idPais" />
+                        <p:selectOneMenu id="idPais" 
+                                         value="#{direccionesController.selected.idPais}" 
+                                         filter ="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idPais}">
+                            <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
+                                           var="idPaisItem"
+                                           itemValue="#{idPaisItem}"/>
+                            <p:ajax
+                                event ="change"
+                                update ="idEntidad, idMunicipio"
+                                listener ="#{direccionesController.ObtenerEntidades(event)}"
+                                ></p:ajax>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_idEntidad}" for="idEntidad" />
+                        <p:selectOneMenu id="idEntidad" 
+                                         value="#{direccionesController.selected.idEntidad}" 
+                                         filter="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEntidad}">
+                            <f:selectItems value="#{direccionesController.listEntidades}"
+                                           var="idEntidadItem"
+                                           itemValue="#{idEntidadItem}"/>
+                            <p:ajax
+                                event ="change"
+                                update ="idMunicipio"
+                                listener ="#{direccionesController.ObtenerMunicipios(event)}"
+                                ></p:ajax>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" 
+                                         value="#{direccionesController.selected.idMunicipio}" 
+                                         filter="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                            <f:selectItems value="#{direccionesController.listMunicipios}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{direccionesController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idUsuario}">
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionesController.create}" value="#{bundle.Save}" update="display,:DireccionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'DireccionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DireccionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

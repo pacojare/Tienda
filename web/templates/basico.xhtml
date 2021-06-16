@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+        <title><ui:insert name="title">Ejemplo básico de template</ui:insert></title>
+        <meta content="" name="description"/>
+        <meta content="" name="keywords"/>
+
+        <!-- Favicons -->
+        <link href="${facesContext.externalContext.requestContextPath}/resources/assets/img/favicon.png" rel="icon"/>
+        <link href="${facesContext.externalContext.requestContextPath}/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon"/>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"/>
+
+        <!-- Vendor CSS Files -->
+        <h:outputStylesheet name="assets/vendor/bootstrap/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="assets/vendor/icofont/icofont.min.css"/>
+        <h:outputStylesheet name="assets/vendor/boxicons/css/boxicons.min.css"/>
+        <h:outputStylesheet name="assets/vendor/venobox/venobox.css"/>
+        <h:outputStylesheet name="assets/vendor/owl.carousel/assets/owl.carousel.min.css"/>
+        <h:outputStylesheet name="assets/vendor/aos/aos.css"/>
+
+        <!-- Template Main CSS File -->
+        <h:outputStylesheet name="assets/css/style.css"/>
+
+        <!-- =======================================================
+        * Template Name: Plato - v2.2.1
+        * Template URL: https://bootstrapmade.com/plato-responsive-bootstrap-website-template/
+        * Author: BootstrapMade.com
+        * License: https://bootstrapmade.com/license/
+        ======================================================== -->    
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" life="3000" />
+
+        <div class ="wrap">    
+
+            <!-- ======= Header ======= -->
+            <header id="header" class="d-flex align-items-center">
+                <div class="container d-flex align-items-center">
+
+                    <div class="logo mr-auto">
+                        <h1 class="text-light"><a href="/Tienda/faces/inicio.xhtml"><span>Bike-Store</span></a></h1>
+                        <!-- Uncomment below if you prefer to use an image logo -->
+                        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                    </div>
+
+                    <nav class="nav-menu d-none d-lg-block">
+                        <ul>
+                            <li class="active"><a href="/Tienda/faces/empleado.xhtml">Home Empleado</a></li>
+                            <li><h:link  outcome = "/#{sessionScope.usuario.getIdTipoUsu().getNombre()}.xhtml" value="#{sessionScope.nombre_com} / #{sessionScope.usuario.getIdTipoUsu().getNombre()}"/>
+                            </li>
+                            <li class="drop-down"><a href="">CRUDS</a>
+                                <ul>
+                                    <li><h:link outcome = "/categorias/List" value="Ver Categorías"/></li>
+                                    <li><h:link outcome = "/productos/List" value="Ver Productos"/></li>
+                                    <li><h:link outcome = "/servicios/List" value="Ver Servicios"/></li>
+                                    <li><h:link outcome = "/categoriasServicios/List" value="Ver Tipos de Servicios"/></li>
+                                    <li><h:link outcome = "/seviciosOfrecidos/List" value="Ver Servicios Ofrecidos"/></li>
+                                </ul>
+                            </li>                     
+
+                        </ul>
+                    </nav><!-- .nav-menu -->
+                    <h:form>
+                        <p:commandButton actionListener="#{login.cerrarSesion()}" value="Cerrar Sesión" class="get-started-btn scrollto"></p:commandButton>
+                    </h:form>
+
+                </div>
+            </header><!-- End Header -->   
+
+            <!-- ======= Cta Section ======= -->
+            <section id="cta" class="cta">
+                <div class="container">
+
+                    <div class="text-center" data-aos="zoom-in">
+                        <h1 style="color: white">Empleado</h1>                        
+                    </div>
+
+                </div>
+            </section><!-- End Cta Section -->
+            <main id="main">
+                <ui:insert name="contenido"/>
+            </main>
+            <!-- ======= Footer ======= -->
+            <footer id="footer">
+
+                <div class="footer-newsletter">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <h4>Join Our Newsletter</h4>
+                                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                                <form action="" method="post">
+                                    <input type="email" name="email"/><input type="submit" value="Subscribe"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-3 col-md-6 footer-contact">
+                                <h3>Plato</h3>
+                                <p>
+                                    A108 Adam Street <br/>
+                                    New York, NY 535022<br/>
+                                    United States <br/><br/>
+                                    <strong>Phone:</strong> +1 5589 55488 55<br/>
+                                    <strong>Email:</strong> info@example.com<br/>
+                                </p>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 footer-links">
+                                <h4>Useful Links</h4>
+                                <ul>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 footer-links">
+                                <h4>Our Services</h4>
+                                <ul>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                                    <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 footer-links">
+                                <h4>Our Social Networks</h4>
+                                <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                                <div class="social-links mt-3">
+                                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container py-4">
+                    <div class="copyright">
+                        &copy; Copyright <strong><span>Plato</span></strong>. All Rights Reserved
+                    </div>
+                    <div class="credits">
+                        <!-- All the links in the footer should remain intact. -->
+                        <!-- You can delete the links only if you purchased the pro version. -->
+                        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/plato-responsive-bootstrap-website-template/ -->
+                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    </div>
+                </div>
+            </footer><!-- End Footer -->
+        </div>
+        <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+        <!-- Vendor JS Files -->
+        <h:outputScript name="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"/>
+        <h:outputScript name="assets/vendor/jquery.easing/jquery.easing.min.js"/>
+        <h:outputScript name="assets/vendor/php-email-form/validate.js"/>
+        <h:outputScript name="assets/vendor/jquery-sticky/jquery.sticky.js"/>
+        <h:outputScript name="assets/vendor/isotope-layout/isotope.pkgd.min.js"/>
+        <h:outputScript name="assets/vendor/venobox/venobox.min.js"/>
+        <h:outputScript name="assets/vendor/owl.carousel/owl.carousel.min.js"/>
+        <h:outputScript name="assets/vendor/aos/aos.js"/>
+
+        <!-- Template Main JS File -->
+        <h:outputScript name="assets/js/main.js"/>
+
+    </h:body>
+
+</html>

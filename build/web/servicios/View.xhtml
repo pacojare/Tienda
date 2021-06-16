@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServiciosViewDlg" widgetVar="ServiciosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewServiciosTitle}">
+            <h:form id="ServiciosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{serviciosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewServiciosLabel_id}"/>
+                        <h:outputText value="#{serviciosController.selected.id}" title="#{bundle.ViewServiciosTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_fechaInicio}"/>
+                        <h:outputText value="#{serviciosController.selected.fechaInicio}" title="#{bundle.ViewServiciosTitle_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_fechaFin}"/>
+                        <h:outputText value="#{serviciosController.selected.fechaFin}" title="#{bundle.ViewServiciosTitle_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_total}"/>
+                        <h:outputText value="#{serviciosController.selected.total}" title="#{bundle.ViewServiciosTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_idTipoPago}"/>
+                        <h:outputText value="#{serviciosController.selected.idTipoPago}" title="#{bundle.ViewServiciosTitle_idTipoPago}"/>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_status}"/>
+                        <h:outputText value="#{serviciosController.selected.status}" title="#{bundle.ViewServiciosTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_idCliente}"/>
+                        <h:outputText value="#{serviciosController.selected.idCliente}" title="#{bundle.ViewServiciosTitle_idCliente}"/>
+                        <h:outputText value="#{bundle.ViewServiciosLabel_idEmpleado}"/>
+                        <h:outputText value="#{serviciosController.selected.idEmpleado}" title="#{bundle.ViewServiciosTitle_idEmpleado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ServiciosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

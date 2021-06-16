@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaqueteriasCreateDlg" widgetVar="PaqueteriasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaqueteriasTitle}">
+            <h:form id="PaqueteriasCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paqueteriasController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePaqueteriasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{paqueteriasController.selected.nombre}" title="#{bundle.CreatePaqueteriasTitle_nombre}" required="true" requiredMessage="#{bundle.CreatePaqueteriasRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreatePaqueteriasLabel_precioEnvio}" for="precioEnvio" />
+                        <p:inputText id="precioEnvio" value="#{paqueteriasController.selected.precioEnvio}" title="#{bundle.CreatePaqueteriasTitle_precioEnvio}" required="true" requiredMessage="#{bundle.CreatePaqueteriasRequiredMessage_precioEnvio}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paqueteriasController.create}" value="#{bundle.Save}" update="display,:PaqueteriasListForm:datalist,:growl" oncomplete="handleSubmit(args,'PaqueteriasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaqueteriasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

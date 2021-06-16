@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleServicioCreateDlg" widgetVar="DetalleServicioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDetalleServicioTitle}">
+            <h:form id="DetalleServicioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleServicioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDetalleServicioLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{detalleServicioController.selected.precio}" title="#{bundle.CreateDetalleServicioTitle_precio}" required="true" requiredMessage="#{bundle.CreateDetalleServicioRequiredMessage_precio}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleServicioLabel_idServicio}" for="idServicio" />
+                        <p:selectOneMenu id="idServicio" value="#{detalleServicioController.selected.idServicio}" >
+                            <f:selectItems value="#{serviciosController.itemsAvailableSelectOne}"
+                                           var="idServicioItem"
+                                           itemValue="#{idServicioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDetalleServicioLabel_idServicioOfrecido}" for="idServicioOfrecido" />
+                        <p:selectOneMenu id="idServicioOfrecido" value="#{detalleServicioController.selected.idServicioOfrecido}" >
+                            <f:selectItems value="#{seviciosOfrecidosController.itemsAvailableSelectOne}"
+                                           var="idServicioOfrecidoItem"
+                                           itemValue="#{idServicioOfrecidoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleServicioController.create}" value="#{bundle.Save}" update="display,:DetalleServicioListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleServicioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleServicioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

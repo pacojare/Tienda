@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionesEditDlg" widgetVar="DireccionesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDireccionesTitle}">
+            <h:form id="DireccionesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_id}" for="id" />
+                        <p:inputText disabled="true" id="id" value="#{direccionesController.selected.id}" title="#{bundle.EditDireccionesTitle_id}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{direccionesController.selected.direccion}" title="#{bundle.EditDireccionesTitle_direccion}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_colonia}" for="colonia" />
+                        <p:inputText id="colonia" value="#{direccionesController.selected.colonia}" title="#{bundle.EditDireccionesTitle_colonia}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_colonia}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_cp}" for="cp" />
+                        <p:inputText id="cp" value="#{direccionesController.selected.cp}" title="#{bundle.EditDireccionesTitle_cp}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_cp}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_alias}" for="alias" />
+                        <p:inputText id="alias" value="#{direccionesController.selected.alias}" title="#{bundle.EditDireccionesTitle_alias}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_alias}"/>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{direccionesController.selected.status}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_status}">
+                            <f:selectItem itemLabel="-- Seleccionar --" itemValue=""/>
+                            <f:selectItem itemLabel="Activo" itemValue="1" />
+                            <f:selectItem itemLabel="Eliminar" itemValue="0" />                            
+                        </p:selectOneMenu>                       
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idPais}" for="idPais" />
+                        <p:selectOneMenu id="idPais" value="#{direccionesController.selected.idPais}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idPais}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
+                                           var="idPaisItem"
+                                           itemValue="#{idPaisItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idEntidad}" for="idEntidad" />
+                        <p:selectOneMenu id="idEntidad" value="#{direccionesController.selected.idEntidad}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEntidad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{entidadesController.itemsAvailableSelectOne}"
+                                           var="idEntidadItem"
+                                           itemValue="#{idEntidadItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idMunicipio}" for="idMunicipio" />
+                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
+                                           var="idMunicipioItem"
+                                           itemValue="#{idMunicipioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDireccionesLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{direccionesController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionesController.update}" value="#{bundle.Save}" update="display,:DireccionesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DireccionesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DireccionesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

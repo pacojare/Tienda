@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleServicioViewDlg" widgetVar="DetalleServicioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDetalleServicioTitle}">
+            <h:form id="DetalleServicioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleServicioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDetalleServicioLabel_id}"/>
+                        <h:outputText value="#{detalleServicioController.selected.id}" title="#{bundle.ViewDetalleServicioTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDetalleServicioLabel_precio}"/>
+                        <h:outputText value="#{detalleServicioController.selected.precio}" title="#{bundle.ViewDetalleServicioTitle_precio}"/>
+                        <h:outputText value="#{bundle.ViewDetalleServicioLabel_status}"/>
+                        <h:outputText value="#{detalleServicioController.selected.status}" title="#{bundle.ViewDetalleServicioTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewDetalleServicioLabel_idServicio}"/>
+                        <h:outputText value="#{detalleServicioController.selected.idServicio}" title="#{bundle.ViewDetalleServicioTitle_idServicio}"/>
+                        <h:outputText value="#{bundle.ViewDetalleServicioLabel_idServicioOfrecido}"/>
+                        <h:outputText value="#{detalleServicioController.selected.idServicioOfrecido}" title="#{bundle.ViewDetalleServicioTitle_idServicioOfrecido}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DetalleServicioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
