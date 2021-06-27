@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")
     , @NamedQuery(name = "Usuarios.findById", query = "SELECT u FROM Usuarios u WHERE u.id = :id")
+    , @NamedQuery(name = "Usuarios.Username", query = "SELECT u FROM Usuarios u WHERE u.username = :usu1")
+    , @NamedQuery(name = "Usuarios.Email", query = "SELECT u FROM Usuarios u WHERE u.email = :email")
     , @NamedQuery(name = "Usuarios.Acceder", query = "SELECT u FROM Usuarios u WHERE u.username = :usu1 and u.password = :pass1")
     , @NamedQuery(name = "Usuarios.findActivos", query = "SELECT u FROM Usuarios u WHERE u.status = 1")
     , @NamedQuery(name = "Usuarios.findEliminados", query = "SELECT u FROM Usuarios u WHERE u.status = 0")    
@@ -61,63 +63,76 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    //nombre
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "nombre")
     private String nombre;
+    //ap_pat
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "ap_pat")
     private String apPat;
+    //ap_mat
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "ap_mat")
     private String apMat;
+    //RFC
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "rfc")
     private String rfc;
+    //Curp
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "curp")
     private String curp;
+    //Correo
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "email")
     private String email;
+    //Telefono
     @Basic(optional = false)
     @NotNull
     @Column(name = "telefono")
     private int telefono;
+    //telefono_txt
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "telefono_txt")
     private String telefonoTxt;
+    //fecha nacimiento
     @Column(name = "fecha_naci")
     @Temporal(TemporalType.DATE)
     private Date fechaNaci;
+    //username
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "username")
     private String username;
+    //password
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "password")
     private String password;
+    //status
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
     private int status;
+    
     @OneToMany(mappedBy = "idCliente")
     private Collection<Servicios> serviciosCollection;
     @OneToMany(mappedBy = "idEmpleado")

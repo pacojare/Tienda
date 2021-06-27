@@ -3,6 +3,10 @@ package control;
 import modelo.Fotosproductos;
 import control.util.JsfUtil;
 import control.util.JsfUtil.PersistAction;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,10 +17,12 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.UploadedFile;
 
 @Named("fotosproductosController")
 @SessionScoped
@@ -28,6 +34,25 @@ public class FotosproductosController implements Serializable {
     private List<Fotosproductos> items2 = null;
     private Fotosproductos selected;
 
+    private UploadedFile foto;
+    private String aux;
+
+    public UploadedFile getFoto() {
+        return foto;
+    }
+
+    public void setFoto(UploadedFile foto) {
+        this.foto = foto;
+    }
+
+    public String getAux() {
+        return aux;
+    }
+
+    public void setAux(String aux) {
+        this.aux = aux;
+    }
+
     public List<Fotosproductos> getItems2() {
         if (items2 == null) {
             items2 = ejbFacade.listaEliminados();
@@ -37,8 +62,8 @@ public class FotosproductosController implements Serializable {
 
     public void setItems2(List<Fotosproductos> items2) {
         this.items2 = items2;
-    }    
-    
+    }
+
     public FotosproductosController() {
     }
 
@@ -67,10 +92,80 @@ public class FotosproductosController implements Serializable {
     }
 
     public void create() {
+        selected.setRuta(aux);
         selected.setStatus(1);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("FotosproductosCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    //pasa subir y guardar el archivo en carpeta, pero la ruta en la BD
+
+    public void AgregarFoto() {
+        System.out.println("MIME TYPE " + getFoto().getContentType());
+        System.out.println("TAMAÑO: " + getFoto().getSize());
+        System.out.println("EXTENSIÓN PNG: " + getFoto().getFileName().endsWith(".png"));
+        System.out.println("EXTENCIÓN JPG: " + getFoto().getFileName().endsWith(".jpg"));
+        System.out.println("EXTENCIÓN PDF: " + getFoto().getFileName().endsWith(".pdf"));
+
+        if (getFoto().getFileName().endsWith(".png") || getFoto().getFileName().endsWith(".jpg")
+                || getFoto().getFileName().endsWith(".pdf")) {
+            if (SubirArchivo()) {
+                create();
+                aux = "";
+            } else {
+                FacesMessage mensaje = new FacesMessage("No se pudo guardar el archivo.");
+                FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            }
+        } else {
+            FacesMessage mensaje = new FacesMessage("El archivo NO es una imagen.");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+        }
+    }
+
+    public Boolean SubirArchivo() {
+        try {
+            if(getFoto().getFileName().endsWith(".png") || getFoto().getFileName().endsWith(".jpg")){
+                aux = "resources/img_productos";                
+            }
+            if(getFoto().getFileName().endsWith(".pdf") ){
+                aux = "resources/documentos";                
+            }
+            
+
+            System.out.println("Ruta= " + aux);
+            File archivo = new File(JsfUtil.getPath() + aux);
+            if (!archivo.exists()) {
+                archivo.mkdirs();
+            }
+            copiar_archivo(getFoto().getFileName(), getFoto().getInputstream());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    public void copiar_archivo(String nombre_archivo, InputStream in){
+        
+        try{
+            aux = aux + "/" + nombre_archivo;
+            System.out.println("se va a guardar");
+            System.out.println("Ruta on: " + aux);
+            System.out.println("Ruta real: " + JsfUtil.getPath() + aux);
+            OutputStream out = new FileOutputStream(new File(JsfUtil.getPath() + aux));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while((read = in.read(bytes)) != -1){
+                out.write(bytes, 0, read);
+            }
+            System.out.println("ya se guardo");
+            aux = aux.substring(9);
+            System.out.println("Ruta en la base: " + aux);
+            in.close();
+            out.flush();
+            out.close();
+        }catch(Exception e){
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Error"));
+            
         }
     }
 
@@ -88,7 +183,7 @@ public class FotosproductosController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void restaurar() {
         selected.setStatus(1);
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("FotosproductosDeleted"));

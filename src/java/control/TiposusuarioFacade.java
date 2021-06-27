@@ -50,4 +50,16 @@ public class TiposusuarioFacade extends AbstractFacade<Tiposusuario> {
             return null;                
     }
     
+    public Tiposusuario usuarioCliente(){
+        Query consulta = em.createNamedQuery("TiposUsuario.findCliente",Tiposusuario.class);
+        List<Tiposusuario> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            
+            return lista.get(0);
+        }
+        else
+        return null;
+        
+    }
+    
 }

@@ -29,23 +29,45 @@
                             <f:selectItem itemLabel="Eliminar" itemValue="0" />                            
                         </p:selectOneMenu>                       
                         <p:outputLabel value="#{bundle.EditDireccionesLabel_idPais}" for="idPais" />
-                        <p:selectOneMenu id="idPais" value="#{direccionesController.selected.idPais}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idPais}">
+                        <p:selectOneMenu id="idPais" 
+                                         value="#{direccionesController.selected.idPais}" 
+                                         filter="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idPais}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{paisesController.itemsAvailableSelectOne}"
                                            var="idPaisItem"
                                            itemValue="#{idPaisItem}"/>
+                            <p:ajax
+                                event ="change"
+                                update ="idEntidad,idMunicipio"
+                                listener ="#{direccionesController.ObtenerEntidades(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDireccionesLabel_idEntidad}" for="idEntidad" />
-                        <p:selectOneMenu id="idEntidad" value="#{direccionesController.selected.idEntidad}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEntidad}">
+                        <p:selectOneMenu id="idEntidad" 
+                                         value="#{direccionesController.selected.idEntidad}" 
+                                         filter="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idEntidad}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{entidadesController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{direccionesController.listEntidades}"
                                            var="idEntidadItem"
                                            itemValue="#{idEntidadItem}"/>
+                            <p:ajax
+                                event ="change"
+                                update ="idMunicipio"
+                                listener ="#{direccionesController.ObtenerMunicipios(event)}"
+                                />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDireccionesLabel_idMunicipio}" for="idMunicipio" />
-                        <p:selectOneMenu id="idMunicipio" value="#{direccionesController.selected.idMunicipio}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
+                        <p:selectOneMenu id="idMunicipio" 
+                                         value="#{direccionesController.selected.idMunicipio}" 
+                                         filter="true"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditDireccionesRequiredMessage_idMunicipio}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{municipiosController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{direccionesController.listMunicipios}"
                                            var="idMunicipioItem"
                                            itemValue="#{idMunicipioItem}"/>
                         </p:selectOneMenu>

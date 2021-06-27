@@ -9,19 +9,35 @@
     <ui:composition>
 
         <p:dialog id="FotosproductosCreateDlg" widgetVar="FotosproductosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFotosproductosTitle}">
-            <h:form id="FotosproductosCreateForm">
+            <h:form id="FotosproductosCreateForm"
+                    enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{fotosproductosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateFotosproductosLabel_ruta}" for="ruta" />
-                        <p:inputText id="ruta" value="#{fotosproductosController.selected.ruta}" title="#{bundle.CreateFotosproductosTitle_ruta}" required="true" requiredMessage="#{bundle.CreateFotosproductosRequiredMessage_ruta}"/>
+                        
+                        <p:outputLabel value="Foto" for="foto"/>
+                        <p:fileUpload id="foto" value="#{fotosproductosController.foto}"
+                                      required="true"
+                                      requiredMessage="El archivo es obligatorio"
+                                      mode="simple"
+                                      allowTypes="/(\.|\/))(png|jpg|pdf)$/1"/>
+                        
                         <p:outputLabel value="#{bundle.CreateFotosproductosLabel_idProducto}" for="idProducto" />
                         <p:selectOneMenu id="idProducto" value="#{fotosproductosController.selected.idProducto}" >
                             <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
                                            var="idProductoItem"
                                            itemValue="#{idProductoItem}"/>
                         </p:selectOneMenu>
+                        
+                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{fotosproductosController.create}" value="#{bundle.Save}" update="display,:FotosproductosListForm:datalist,:growl" oncomplete="handleSubmit(args,'FotosproductosCreateDialog');"/>
+                    <p:inputText id="aux" value="#{fotosproductosController.aux}" type="hidden"/>
+                    
+                    <p:commandButton 
+                        value="Guardar Foto"
+                        action="#{fotosproductosController.AgregarFoto()}"
+                        ajax="false"
+                        update="display,:FotosproductosListForm:datalist,:growl"
+                        />
                     <p:commandButton value="#{bundle.Cancel}" onclick="FotosproductosCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

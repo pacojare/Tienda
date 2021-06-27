@@ -33,7 +33,21 @@
                         <p:outputLabel value="#{bundle.EditUsuariosLabel_fechaNaci}" for="fechaNaci" />
                         <p:calendar id="fechaNaci" pattern="MM/dd/yyyy" value="#{usuariosController.selected.fechaNaci}" title="#{bundle.EditUsuariosTitle_fechaNaci}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditUsuariosLabel_username}" for="username" />
-                        <p:inputText id="username" value="#{usuariosController.selected.username}" title="#{bundle.EditUsuariosTitle_username}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_username}"/>
+                             
+                        <h:panelGrid columns="1">
+                        <p:inputText id="username" 
+                                     value="#{usuariosController.selected.username}" 
+                                     title="#{bundle.EditUsuariosTitle_username}" 
+                                     required="true" 
+                                     requiredMessage="#{bundle.EditUsuariosRequiredMessage_username}">
+                        <p:ajax
+                            event="change"
+                            update="username,mensaje"
+                            listener="#{usuariosController.comprobarUsername(event)}"                            
+                            />
+                        </p:inputText>
+                        <p:outputLabel style="color:red" id="mensaje" value="#{usuariosController.mensaje}"/>  
+                        </h:panelGrid>
                         <p:outputLabel value="#{bundle.EditUsuariosLabel_password}" for="password" />
                         <p:inputText id="password" value="#{usuariosController.selected.password}" title="#{bundle.EditUsuariosTitle_password}" required="true" requiredMessage="#{bundle.EditUsuariosRequiredMessage_password}"/>
                         <p:outputLabel value="#{bundle.EditUsuariosLabel_status}" for="status" />

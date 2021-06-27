@@ -166,10 +166,16 @@ public class DireccionesController implements Serializable {
     }
     
     public void ObtenerEntidades(AjaxBehaviorEvent event){
-        System.out.println("ID_PAIS = "+ selected.getIdPais().getId());
+        System.out.println("ID_PAIS Entidad = "+ selected.getIdPais().getId());
         listEntidades = ejbFacade_entidades.ObtenerEntidades(selected.getIdPais().getId());  
         System.out.println("Hola" + listEntidades);
         listMunicipios = ejbFacade_municipios.ObtenerMunicipios(0);                
+    }
+    
+    public void ObtenerEntidades2(AjaxBehaviorEvent event){
+        System.out.println("ID_PAIS Entidad = "+ selected.getIdPais().getId());
+        listEntidades = ejbFacade_entidades.ObtenerEntidades(selected.getIdPais().getId());  
+        System.out.println("Hola" + listEntidades);                        
     }
     
     public void ObtenerMunicipios(AjaxBehaviorEvent event){

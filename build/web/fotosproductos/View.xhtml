@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="FotosproductosViewDlg" widgetVar="FotosproductosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFotosproductosTitle}">
-            <h:form id="FotosproductosViewForm">
+            <h:form id="FotosproductosViewForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{fotosproductosController.selected != null}">
                         <h:outputText value="#{bundle.ViewFotosproductosLabel_id}"/>
@@ -20,6 +20,11 @@
                         <h:outputText value="#{fotosproductosController.selected.status}" title="#{bundle.ViewFotosproductosTitle_status}"/>
                         <h:outputText value="#{bundle.ViewFotosproductosLabel_idProducto}"/>
                         <h:outputText value="#{fotosproductosController.selected.idProducto}" title="#{bundle.ViewFotosproductosTitle_idProducto}"/>
+                        <h:outputText value="Foto"/>                   
+                        <p:graphicImage width="250px" name="#{fotosproductosController.selected.ruta}"/>                            
+                        
+
+                       
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="FotosproductosViewDialog.hide()"/>
                 </h:panelGroup>

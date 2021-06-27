@@ -66,4 +66,23 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
                 
     }
     
+    public String usernames(String usu){
+        Query consulta =em.createNamedQuery("Usuarios.Username",Usuarios.class).setParameter("usu1", usu);
+        List<Usuarios> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return "no";            
+        }else{
+            return "ok";
+        }
+    }
+    public String email(String email){
+        Query consulta =em.createNamedQuery("Usuarios.Email",Usuarios.class).setParameter("email", email);
+        List<Usuarios> lista = consulta.getResultList();
+        if(!lista.isEmpty()){
+            return "no";            
+        }else{
+            return "ok";
+        }
+    }
+    
 }

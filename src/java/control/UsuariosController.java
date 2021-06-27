@@ -1,6 +1,7 @@
 package control;
 
 import modelo.Usuarios;
+import modelo.Tiposusuario;
 import control.util.JsfUtil;
 import control.util.JsfUtil.PersistAction;
 
@@ -17,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 import org.apache.commons.codec.digest.DigestUtils;
 
 @Named("usuariosController")
@@ -25,9 +27,37 @@ public class UsuariosController implements Serializable {
 
     @EJB
     private control.UsuariosFacade ejbFacade;
+    @EJB
+    private control.TiposusuarioFacade ejbFacade1;
     private List<Usuarios> items = null;
     private List<Usuarios> items2 = null;
     private Usuarios selected;
+    private String mensaje;
+    private String mensaje2;
+
+    public String getMensaje2() {
+        return mensaje2;
+    }
+
+    public void setMensaje2(String mensaje2) {
+        this.mensaje2 = mensaje2;
+    }
+       
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
+    public Tiposusuario getCliente() {
+
+        Tiposusuario cliente = ejbFacade1.usuarioCliente();
+
+        return cliente;
+    }
 
     public List<Usuarios> getItems2() {
         if (items2 == null) {
@@ -43,6 +73,7 @@ public class UsuariosController implements Serializable {
     
     
     public UsuariosController() {
+        selected = new Usuarios();
     }
 
     public Usuarios getSelected() {
@@ -61,6 +92,25 @@ public class UsuariosController implements Serializable {
 
     private UsuariosFacade getFacade() {
         return ejbFacade;
+    }
+    
+    
+    
+    public void comprobarUsername(AjaxBehaviorEvent event){
+        System.out.println("Nombre de usuario ingresado: " + selected.getUsername()); 
+        if(ejbFacade.usernames(selected.getUsername()).equals("ok")){
+            mensaje= " ";
+        }else{            
+            mensaje="El nombre de usuario ya existe";
+        }
+    }
+    public void comprobarEmail(AjaxBehaviorEvent event){
+        System.out.println("Email ingresado: " + selected.getEmail()); 
+        if(ejbFacade.email(selected.getEmail()).equals("ok")){
+            mensaje2= " ";
+        }else{            
+            mensaje2="El email ya fue registrado";
+        }
     }
 
     public Usuarios prepareCreate() {
@@ -81,6 +131,26 @@ public class UsuariosController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    public void registroParcial() {
+        selected.setStatus(1);
+        selected.setRfc(" ");
+        selected.setCurp(" ");
+        selected.setTelefono(0);
+        selected.setTelefonoTxt(" ");
+        selected.setIdTipoUsu(getCliente());
+        
+        
+        String pass= selected.getPassword();
+        String pass_encrip = DigestUtils.sha1Hex(pass);
+        selected.setPassword(pass_encrip);
+        
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
 
     public void update() {
         String pass= selected.getPassword();

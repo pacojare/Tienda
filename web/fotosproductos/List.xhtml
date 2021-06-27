@@ -29,16 +29,29 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFotosproductosTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListFotosproductosTitle_ruta}"/>
                             </f:facet>
                             <h:outputText value="#{item.ruta}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListFotosproductosTitle_idProducto}"/>
+                                <h:outputText value="Foto"/>
                             </f:facet>
-                            <h:outputText value="#{item.idProducto.nombre}"/>
+                            <p:graphicImage width="250px" name="#{item.ruta}"/>                            
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descarga"/>
+                            </f:facet>
+                            <h:link outcome="/resources#{item.ruta}" value="Descargar archivo" target="_blank"/>
+                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{fotosproductosController.prepareCreate}" update=":FotosproductosCreateForm" oncomplete="PF('FotosproductosCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":FotosproductosViewForm" oncomplete="PF('FotosproductosViewDialog').show()" disabled="#{empty fotosproductosController.selected}"/>
