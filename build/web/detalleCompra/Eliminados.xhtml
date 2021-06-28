@@ -29,6 +29,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleCompraTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetalleCompraTitle_cantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidad}"/>
@@ -51,12 +57,7 @@
                             </f:facet>
                         <h:outputText value="#{item.idCompra.idUsuario.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleCompraTitle_idProducto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idProducto.nombre}"/>
-                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="RESTAURAR" actionListener="#{detalleCompraController.restaurar}" update=":growl,datalist" disabled="#{empty detalleCompraController.selected}"/>
                             <h:link outcome="/detalleCompra/List" value="Lista detalle compra"/>

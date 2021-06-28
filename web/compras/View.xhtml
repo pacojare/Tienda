@@ -27,9 +27,9 @@
                         <h:outputText value="#{bundle.ViewComprasLabel_status}"/>
                         <h:outputText value="#{comprasController.selected.status}" title="#{bundle.ViewComprasTitle_status}"/>
                         <h:outputText value="#{bundle.ViewComprasLabel_idProveedor}"/>
-                        <h:outputText value="#{comprasController.selected.idProveedor}" title="#{bundle.ViewComprasTitle_idProveedor}"/>
+                        <h:outputText value="#{comprasController.selected.idProveedor.nombre}" title="#{bundle.ViewComprasTitle_idProveedor}"/>
                         <h:outputText value="#{bundle.ViewComprasLabel_idUsuario}"/>
-                        <h:outputText value="#{comprasController.selected.idUsuario}" title="#{bundle.ViewComprasTitle_idUsuario}"/>
+                        <h:outputText value="#{comprasController.selected.idUsuario.nombre}  #{comprasController.selected.idUsuario.apPat} #{comprasController.selected.idUsuario.apMat}" title="#{bundle.ViewComprasTitle_idUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ComprasViewDialog.hide()"/>
                 </h:panelGroup>

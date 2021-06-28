@@ -14,6 +14,13 @@
                     <p:panelGrid columns="2" rendered="#{detalleCompraController.selected != null}">
                         <p:outputLabel value="#{bundle.EditDetalleCompraLabel_id}" for="id" />
                         <p:inputText disabled="true" id="id" value="#{detalleCompraController.selected.id}" title="#{bundle.EditDetalleCompraTitle_id}" required="true" requiredMessage="#{bundle.EditDetalleCompraRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleCompraLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{detalleCompraController.selected.idProducto}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDetalleCompraLabel_cantidad}" for="cantidad" />
                         <p:inputText id="cantidad" value="#{detalleCompraController.selected.cantidad}" title="#{bundle.EditDetalleCompraTitle_cantidad}" required="true" requiredMessage="#{bundle.EditDetalleCompraRequiredMessage_cantidad}"/>
                         <p:outputLabel value="#{bundle.EditDetalleCompraLabel_precioCompra}" for="precioCompra" />
@@ -33,13 +40,7 @@
                                            var="idCompraItem"
                                            itemValue="#{idCompraItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDetalleCompraLabel_idProducto}" for="idProducto" />
-                        <p:selectOneMenu id="idProducto" value="#{detalleCompraController.selected.idProducto}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"
-                                           var="idProductoItem"
-                                           itemValue="#{idProductoItem}"/>
-                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{detalleCompraController.update}" value="#{bundle.Save}" update="display,:DetalleCompraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleCompraEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetalleCompraEditDialog.hide()"/>

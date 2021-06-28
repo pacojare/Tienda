@@ -29,6 +29,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleCompraTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetalleCompraTitle_cantidad}"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidad}"/>
@@ -51,12 +57,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idCompra.idUsuario.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleCompraTitle_idProducto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idProducto.nombre}"/>
-                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detalleCompraController.prepareCreate}" update=":DetalleCompraCreateForm" oncomplete="PF('DetalleCompraCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleCompraViewForm" oncomplete="PF('DetalleCompraViewDialog').show()" disabled="#{empty detalleCompraController.selected}"/>

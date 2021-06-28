@@ -14,6 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{detalleCompraController.selected != null}">
                         <h:outputText value="#{bundle.ViewDetalleCompraLabel_id}"/>
                         <h:outputText value="#{detalleCompraController.selected.id}" title="#{bundle.ViewDetalleCompraTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewDetalleCompraLabel_idProducto}"/>
+                        <h:outputText value="#{detalleCompraController.selected.idProducto.nombre}" title="#{bundle.ViewDetalleCompraTitle_idProducto}"/>
                         <h:outputText value="#{bundle.ViewDetalleCompraLabel_cantidad}"/>
                         <h:outputText value="#{detalleCompraController.selected.cantidad}" title="#{bundle.ViewDetalleCompraTitle_cantidad}"/>
                         <h:outputText value="#{bundle.ViewDetalleCompraLabel_precioCompra}"/>
@@ -23,9 +25,7 @@
                         <h:outputText value="#{bundle.ViewDetalleCompraLabel_status}"/>
                         <h:outputText value="#{detalleCompraController.selected.status}" title="#{bundle.ViewDetalleCompraTitle_status}"/>
                         <h:outputText value="#{bundle.ViewDetalleCompraLabel_idCompra}"/>
-                        <h:outputText value="#{detalleCompraController.selected.idCompra}" title="#{bundle.ViewDetalleCompraTitle_idCompra}"/>
-                        <h:outputText value="#{bundle.ViewDetalleCompraLabel_idProducto}"/>
-                        <h:outputText value="#{detalleCompraController.selected.idProducto}" title="#{bundle.ViewDetalleCompraTitle_idProducto}"/>
+                        <h:outputText value="#{detalleCompraController.selected.idCompra}" title="#{bundle.ViewDetalleCompraTitle_idCompra}"/>                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DetalleCompraViewDialog.hide()"/>
                 </h:panelGroup>
